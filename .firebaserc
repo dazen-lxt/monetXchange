@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "monet-5cf0d": {
+      "hosting": {
+        "monetxchange": [
+          "monet-5cf0d"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "monet-5cf0d"
+  }
+}

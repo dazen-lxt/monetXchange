@@ -1,5 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": "91bc1cc8-d2cf-4484-9441-0ab5bb36d1b6"
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -102,6 +105,16 @@
               "src/styles.scss"
             ],
             "scripts": []
+          }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "monetxchange:build:production",
+            "firebaseProject": "monet-5cf0d",
+            "firebaseHostingSite": "monet-5cf0d"
           }
         }
       }
