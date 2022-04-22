@@ -1,0 +1,24 @@
+<button>Logout</button>
+
+<table class="mat-elevation-z8" mat-table [dataSource]="debtsTableData" matSort #debtsTable>
+
+    <tr mat-header-row *matHeaderRowDef="debtsTableColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: debtsTableColumns"></tr>
+
+    <ng-container matColumnDef="payer">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>PAYER</th>
+        <td mat-cell *matCellDef="let element">{{element.payer}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="debtor">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>DEBTOR</th>
+        <td mat-cell *matCellDef="let element">{{element.debtor}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>AMOUNT</th>
+        <td mat-cell *matCellDef="let element">{{element.amount | currency}}
+        </td>
+    </ng-container>
+
+</table>
