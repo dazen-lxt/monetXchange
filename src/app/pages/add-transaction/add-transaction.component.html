@@ -1,0 +1,23 @@
+<form [formGroup]="addDebtsForm">
+
+    <mat-form-field appearance="fill">
+        <mat-label for="debtor">Debtor</mat-label>
+        <input matInput type="text" id="debtor" formControlName="debtor" [matAutocomplete]="auto" (blur)="onBlurDebtor()">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" >
+            <mat-option *ngIf="isLoadingUsers" class="is-loading">Loading...</mat-option>
+            <div *ngIf="!isLoadingUsers">
+                <mat-option *ngFor="let user of users" [value]="user">
+                  {{user.displayName}}
+                </mat-option>
+            </div>
+        </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label for="amount">Amount</mat-label>
+        <input matInput type="number" id="amount" formControlName="amount">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" (click)="postTransaction()" [disabled]="!addDebtsForm.valid">Submit</button>
+
+</form>
