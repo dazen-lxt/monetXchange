@@ -40,6 +40,6 @@
         <input matInput type="number" id="amount" formControlName="amount">
     </mat-form-field>
 
-    <button mat-raised-button color="primary" type="submit" [disabled]="!addDebtsForm.valid">Submit</button>
+    <button mat-raised-button color="primary" type="submit" (click)="postTransaction()" [disabled]="!addDebtsForm.valid">Submit</button>
 
 </form>
