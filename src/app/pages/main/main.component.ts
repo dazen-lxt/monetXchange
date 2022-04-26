@@ -24,10 +24,17 @@ export class MainComponent implements OnInit {
 
   constructor( private firestore: AngularFirestore,
     ) {
+
       const collection = firestore.collection<Debt>('debts')
       collection.valueChanges().subscribe((result) =>
         this.debtsTableData = new MatTableDataSource(result)
-
+      )
+      collection.valueChanges().subscribe((result) =>
+        console.log(result)
+      )
+      const collectionU = firestore.collection<Debt>('users')
+      collectionU.valueChanges().subscribe((result) =>
+        console.log(result)
       )
     }
   ngOnInit(): void {

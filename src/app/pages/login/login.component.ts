@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { AuthProvider, GoogleAuthProvider } from 'firebase/auth';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'app-login',
@@ -14,14 +15,15 @@ export class LoginComponent implements OnInit {
 
   constructor(
     public fireauth: AngularFireAuth,
-    private router: Router
+    private router: Router,
+    private firestore: AngularFirestore,
   ) {}
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   login() {
     this.fireauth.signInWithEmailAndPassword(this.username,this.password)
     .then((result) => {
-      this.router.navigate(['/main'])
     })
     .catch((error) => {
       console.log(error)
@@ -35,11 +37,30 @@ export class LoginComponent implements OnInit {
   loginWithProvider(provider: AuthProvider) {
     this.fireauth.signInWithPopup(provider)
     .then((result) => {
-      this.router.navigate(['/main'])
+      this.fireauth.currentUser.then((currentUser) => {
+        const userRef =  this.firestore.collection('users').doc(currentUser?.uid)
+        userRef.get().subscribe(user => {
+          if(user.exists) {
+            this.goToMain()
+          } else {
+            userRef.set(
+              {
+                'displayName': currentUser?.displayName,
+                'email': currentUser?.email,
+                'photoURL': currentUser?.photoURL
+              }
+            )
+            this.goToMain()
+          }
+        })
+      })
     })
     .catch((error) => {
       console.log(error)
     })
   }
 
+  goToMain() {
+    this.router.navigate(['/main'])
+  }
 }
